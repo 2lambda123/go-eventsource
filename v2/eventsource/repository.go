@@ -76,7 +76,7 @@ type Repository interface {
 	Store() Store
 
 	// Save one or more events to the repository
-	Save(ctx context.Context, events ...Event) error
+	SaveTransaction(ctx context.Context, events ...Event) (StoreTransaction, error)
 
 	// Save one or more events to the repository, within a transaction
 	SaveTransaction(ctx context.Context, events ...Event) (StoreTransaction, error)
@@ -170,7 +170,7 @@ func (transWrap *transactionWrapper) Commit() error {
 	for _, service := range transWrap.notificationServices {
 		for _, r := range transWrap.transaction.GetRecords() {
 			if err = service.SendWithContext(transWrap.ctx, r); err != nil {
-				return fmt.Errorf("%w: %s", ErrNotificationFailed, err)
+				return fmt.Errorf("%w: %s", ErrNotificationFailedNew, err)
 			}
 		}
 	}
