@@ -16,7 +16,7 @@ var (
 	ErrDeleted = errors.New("not found (was deleted)")
 	// ErrNoHistory is returned by Repository.Load() when no history exist for the given aggregate ID
 	ErrNoHistory = errors.New("no history found")
-	// ErrNotificationFailed is returned by Commit() if notification service fails
+	// ErrNotificationFailedNew is returned by Commit() if notification service fails
 	ErrNotificationFailed = errors.New("Failed to send notification")
 )
 
