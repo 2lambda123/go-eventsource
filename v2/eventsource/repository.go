@@ -207,7 +207,7 @@ func (repo *repository) Store() Store {
 
 // Save persists the event to the repo
 func (repo *repository) Save(ctx context.Context, events ...Event) error {
-	tx, err := repo.SaveTransaction(ctx, events...)
+	tx, err := repo.SaveTransactionWithErrorHandling(ctx, events...)
 	if err != nil {
 		return err
 	}
