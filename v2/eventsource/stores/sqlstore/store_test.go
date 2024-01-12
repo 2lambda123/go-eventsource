@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/jackc/pgconn"
-	_ "github.com/lib/pq"
 	"github.com/oklog/ulid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
