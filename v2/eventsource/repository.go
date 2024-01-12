@@ -104,7 +104,7 @@ type Repository interface {
 	// Deprecated: Use LoadEvents(ctx, store.ByTimestamp(...))
 	// Get all events newer than the given timestamp
 	// Return at most limit records. If limit is 0, don't limit the number of records returned.
-	GetEventsByTimestamp(ctx context.Context, timestamp int64, opts ...QueryOption) (events []Event, err error)
+	GetEventsByTimestampWithTable(ctx context.Context, timestamp int64, tableName string, opts ...QueryOption) (events []Event, err error)
 
 	// Add notification service
 	AddNotificationService(service NotificationService)
