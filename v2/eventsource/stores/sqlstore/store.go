@@ -3,6 +3,8 @@ package sqlstore
 import (
 	"context"
 	"database/sql"
+		"database/sql"
+	"github.com/lib/pq"
 	"fmt"
 	"strings"
 
