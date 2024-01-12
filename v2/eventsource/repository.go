@@ -249,7 +249,7 @@ func (repo *repository) SaveTransaction(ctx context.Context, events ...Event) (S
 		})
 	}
 
-	return newSQLTransactionWrapper(ctx, repo.store, records, repo.notificationServices)
+	return newTransactionWrapper(ctx, repo.store, records, repo.notificationServices)
 }
 
 // Load rehydrates the repo
