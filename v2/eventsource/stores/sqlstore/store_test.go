@@ -14,7 +14,7 @@ import (
 
 	"github.com/SKF/go-eventsource/v2/eventsource"
 	"github.com/SKF/go-eventsource/v2/eventsource/serializers/json"
-	"github.com/SKF/go-eventsource/v2/eventsource/stores/sqlstore"
+	"github.com/SKF/go-eventsource/v2/eventsource/stores/sqlstore/sqlstore_test"
 	"github.com/SKF/go-utility/v2/uuid"
 )
 
@@ -74,7 +74,7 @@ func wrapTest(tf testFunc, store eventsource.Store) func(*testing.T) {
 	}
 }
 
-func TestGenericDriver(t *testing.T) { // nolint:paralleltest
+func TestGenericDriver_SQL(t *testing.T) { // nolint:paralleltest
 	for name, test := range allTests { // nolint:paralleltest
 		db, tableName := setupDB(t)
 		store := sqlstore.New(db, tableName)
@@ -83,7 +83,7 @@ func TestGenericDriver(t *testing.T) { // nolint:paralleltest
 	}
 }
 
-func TestPgxDriver(t *testing.T) { // nolint:paralleltest
+func TestPgxDriver_SQL(t *testing.T) { // nolint:paralleltest
 	for name, test := range allTests { // nolint:paralleltest
 		db, tableName := setupDBPgx(t)
 		store := sqlstore.NewPgx(db, tableName)
@@ -92,7 +92,7 @@ func TestPgxDriver(t *testing.T) { // nolint:paralleltest
 	}
 }
 
-func TestPgxListenNotify(t *testing.T) { // nolint:paralleltest
+func TestPgxListenNotify_SQL(t *testing.T) { // nolint:paralleltest
 	db, tableName := setupDBPgx(t)
 	store := sqlstore.NewPgx(db, tableName).WithPostgresNotify()
 	c := make(chan *pgconn.Notification)
