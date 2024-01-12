@@ -3,6 +3,7 @@ package sqlstore
 import (
 	"context"
 	"database/sql"
+	"github.com/lib/pq"
 		"database/sql"
 	"github.com/lib/pq"
 	"fmt"
@@ -44,7 +45,7 @@ func New(db *sql.DB, tableName string) eventsource.Store {
 }
 
 // NewPgx creates a new event source store.
-func NewPgx(db driver.PgxPool, tableName string) PGXStore {
+func New(db *sql.DB, tableName string) eventsource.Store {
 	return &store{
 		db:        &driver.PGX{DB: db, NotificationChannel: nil},
 		tableName: tableName,
