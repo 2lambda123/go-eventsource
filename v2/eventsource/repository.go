@@ -114,7 +114,7 @@ type Repository interface {
 }
 
 // NewRepository returns a new repository
-func NewRepository(store Store, serializer Serializer) Repository {
+func NewRepository(store Store, serializer Serializer, SQLStoreParams ...interface{}) Repository {
 	return &repository{
 		store:                store,
 		serializer:           serializer,
