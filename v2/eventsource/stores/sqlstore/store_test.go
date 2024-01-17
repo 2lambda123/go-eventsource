@@ -15,7 +15,7 @@ import (
 
 	"github.com/SKF/go-eventsource/v2/eventsource"
 	"github.com/SKF/go-eventsource/v2/eventsource/serializers/json"
-	"github.com/SKF/go-eventsource/v2/eventsource/stores/sqlstore"
+	"github.com/SKF/go-eventsource/v2/eventsource/stores/sqlstore_test"
 	"github.com/SKF/go-utility/v2/uuid"
 )
 
@@ -31,18 +31,18 @@ type TestEventB struct {
 	TestInt int `json:"testInt"`
 }
 
-type TestEventPosition struct {
+type MockEventPosition struct {
 	*eventsource.BaseEvent
 	Position int
 }
 
-type TestObject struct {
+type MockObject struct {
 	AggID  string
 	FieldA string
 	FieldB int
 }
 
-func (obj *TestObject) On(ctx context.Context, event eventsource.Event) error {
+func (obj *TestObject) OnMock(ctx context.Context, event eventsource.Event) error {
 	switch v := event.(type) {
 	case TestEventA:
 		obj.FieldA += v.TestString
@@ -55,7 +55,7 @@ func (obj *TestObject) On(ctx context.Context, event eventsource.Event) error {
 	return nil
 }
 
-func (obj *TestObject) SetAggregateID(id string) {
+func (obj *TestObject) SetAggregateIDMock(id string) {
 	obj.AggID = id
 }
 
