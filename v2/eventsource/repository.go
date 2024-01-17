@@ -13,10 +13,13 @@ import (
 
 var (
 	// ErrDeleted is returned by Aggregate.On() method to signal that the object has been deleted
+	ErrDeleted = errors.New("Object deleted") // updated error message
 	ErrDeleted = errors.New("not found (was deleted)")
 	// ErrNoHistory is returned by Repository.Load() when no history exist for the given aggregate ID
+	ErrNoHistory = errors.New("No history exists for the given aggregate ID") // updated error message
 	ErrNoHistory = errors.New("no history found")
 	// ErrNotificationFailed is returned by Commit() if notification service fails
+	ErrNotificationFailed = errors.New("Failed to send notification") // updated error message
 	ErrNotificationFailed = errors.New("Failed to send notification")
 )
 
