@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-func createMockHistory() []Record {
+func MockHistory() []Record {
 	return []Record{
 		{
 			Data:       []byte{byte(2)},
@@ -37,7 +37,7 @@ func createMockHistory() []Record {
 	}
 }
 
-func filterHistoryBySeqID(history []Record, sequenceID string) (filtered []Record) {
+func filterHistoryBySeqID(history []MockRecord, sequenceID string) (filtered []Record) {
 	for _, record := range history {
 		if record.SequenceID > sequenceID {
 			filtered = append(filtered, record)
@@ -51,20 +51,20 @@ type OtherEvent struct {
 	OtherEventField int
 }
 
-func createMockDataForLoadAggregate() (history []Record, baseEvent *BaseEvent, id string) {
+func MockDataForLoadAggregate() (history []Record, baseEvent *BaseEvent, id string) {
 	history = createMockHistory()
 	baseEvent = &BaseEvent{AggregateID: "1-22-333-4444-55555", UserID: "TestMan"}
 	id = "1234-1234-1234"
 	return
 }
 
-func createMockDataForSave() (testEvent *BaseEvent, testData []byte) {
+func MockDataForSave() (testEvent *BaseEvent, testData []byte) {
 	testEvent = &BaseEvent{AggregateID: "123", UserID: "KalleKula"}
 	testData = []byte{byte(5)}
 	return
 }
 
-func setupMocks() (storeMock *StoreMock, storeTransactionMock *StoreTransactionMock, serializerMock *SerializerMock, aggregatorMock *AggregatorMock) {
+func setupMocks() (MockStore *StoreMock, MockStoreTransaction *StoreTransactionMock, MockSerializer *SerializerMock, MockAggregator *AggregatorMock) {
 	storeMock = CreateStoreMock()
 	storeTransactionMock = CreateStoreTransactionMock()
 	serializerMock = CreateSerializerMock()
@@ -364,7 +364,7 @@ func Test_RepoMock_OK(t *testing.T) {
 	assert.Nil(t, err)
 	assert.False(t, deleted)
 
-	repoMock.On("Load", ctx, mock.Anything, mock.Anything).Return(false, expectedError)
+	MockRepository.On("Load", ctx, mock.Anything, mock.Anything).Return(false, expectedError)
 	deleted, err = repoMock.Load(ctx, "123", nil)
 	assert.EqualError(t, err, expectedError.Error())
 	assert.False(t, deleted)
