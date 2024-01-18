@@ -89,6 +89,9 @@ type Repository interface {
 	// "fast forwarded" to the current state.
 	Load(ctx context.Context, id string, aggr Aggregate) (deleted bool, err error)
 
+	// SetAggregateID sets the aggregate ID for the Aggregate implementation
+	SetAggregateID(id string)
+
 	// Get all events with query options (definied in the store)
 	// Query options can be used for filter by sequence ID (see https://github.com/oklog/ulid)
 	// or options like limit, offset
@@ -268,7 +271,7 @@ func (repo repository) Load(ctx context.Context, aggregateID string, aggr Aggreg
 		return false, ErrNoHistory
 	}
 
-	aggr.SetAggregateID(aggregateID)
+		aggr.SetAggregateID(id)
 
 	for _, record := range history {
 		var event Event
