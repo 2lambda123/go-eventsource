@@ -254,10 +254,11 @@ func (repo *repository) SaveTransaction(ctx context.Context, events ...Event) (S
 	records := []Record{}
 
 	for _, event := range events {
-		event.SetSequenceID(NewULID())
+		eventID := NewULID()
+event.SetSequenceID(eventID)
 
 		if event.GetTimestamp() == 0 {
-			event.SetTimestamp(time.Now().UnixNano())
+			eventTimestamp := time.Now().UnixNano()
 		}
 
 		data, err := repo.serializer.Marshal(event)
@@ -265,7 +266,7 @@ func (repo *repository) SaveTransaction(ctx context.Context, events ...Event) (S
 			return nil, err
 		}
 
-		records = append(records, Record{
+		record := Record{
 			AggregateID: event.GetAggregateID(),
 			SequenceID:  event.GetSequenceID(),
 			Timestamp:   event.GetTimestamp(),
@@ -275,7 +276,11 @@ func (repo *repository) SaveTransaction(ctx context.Context, events ...Event) (S
 		})
 	}
 
-	return newTransactionWrapper(ctx, repo.store, records, repo.notificationServices)
+	transaction, err := newTransactionWrapper(ctx, repo.store, records, repo.notificationServices)
+if err != nil {
+  return nil, err
+}
+return transaction, nil
 }
 
 // Load rehydrates the repo
