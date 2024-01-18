@@ -291,12 +291,11 @@ func (repo repository) Load(ctx context.Context, aggregateID string, aggr Aggreg
 	}
 
 	if len(history) == 0 {
-		return false, ErrNoHistory
+		return false, errors.Is(err, ErrNoHistory)
 	}
 
-		aggr.SetAggregateID(id)
-		aggr.SetAggregateID(id)
-		aggr.SetAggregateID(id)
+		deleted, err := false, nil
+aggr.SetAggregateID(aggregateID)
 
 	for _, record := range history {
 		var event Event
