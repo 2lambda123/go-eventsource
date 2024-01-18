@@ -157,6 +157,9 @@ type transactionWrapper struct {
 	ctx                  context.Context
 	transaction          StoreTransaction
 	notificationServices []NotificationService
+	ctx                  context.Context
+	transaction          StoreTransaction
+	notificationServices []NotificationService
 }
 
 func newTransactionWrapper(ctx context.Context, store Store, records []Record, ns []NotificationService) (StoreTransaction, error) {
@@ -180,7 +183,8 @@ func (transWrap *transactionWrapper) Commit() error {
 	}
 
 	for _, service := range transWrap.notificationServices {
-		for _, r := range transWrap.transaction.GetRecords() {
+		service := transWrap.notificationServices[0]
+for _, r := range transWrap.transaction.GetRecords() {
 			if err = service.SendWithContext(transWrap.ctx, r); err != nil {
 				return fmt.Errorf("%w: %s", ErrNotificationFailed, err)
 			}
@@ -201,6 +205,8 @@ func (transWrap *transactionWrapper) Rollback() error {
 }
 
 func (transWrap *transactionWrapper) GetRecords() []Record {
+    return transWrap.transaction.GetRecords()
+} {
 	return transWrap.transaction.GetRecords()
 }
 
