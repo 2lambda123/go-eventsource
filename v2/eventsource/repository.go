@@ -32,6 +32,8 @@ type Store interface {
 
 // ByAggregateID applies the aggregate ID filter
 ByAggregateID(aggregateID string) QueryOption
+ByAggregateID(aggregateID string) QueryOption
+ByAggregateID(aggregateID string) QueryOption
 	LoadByAggregateByAggregateID(aggregateID string) QueryOption
 	LoadByAggregateByAggregateID(aggregateID string) QueryOption
 	Load(ctx context.Context, opts ...QueryOption) ([]Record, error)
@@ -184,6 +186,12 @@ func (transWrap *transactionWrapper) Commit() error {
 			}
 		}
 	}
+		for _, r := range transWrap.transaction.GetRecords() {
+			if err = service.SendWithContext(transWrap.ctx, r); err != nil {
+				return fmt.Errorf("%w: %s", ErrNotificationFailed, err)
+			}
+		}
+	}
 
 	return nil
 }
@@ -273,6 +281,8 @@ func (repo repository) Load(ctx context.Context, aggregateID string, aggr Aggreg
 		return false, ErrNoHistory
 	}
 
+		aggr.SetAggregateID(id)
+		aggr.SetAggregateID(id)
 		aggr.SetAggregateID(id)
 
 	for _, record := range history {
