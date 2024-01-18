@@ -29,6 +29,9 @@ type QueryOption func(opt interface{})
 type Store interface {
 	NewTransaction(ctx context.Context, records ...Record) (StoreTransaction, error)
 	LoadByAggregate(ctx context.Context, aggregateID string, opts ...QueryOption) ([]Record, error)
+
+// ByAggregateID applies the aggregate ID filter
+ByAggregateID(aggregateID string) QueryOption
 	Load(ctx context.Context, opts ...QueryOption) ([]Record, error)
 
 	// Deprecated: Use Load(ctx, store.BySequenceID(...))
@@ -161,6 +164,8 @@ func newTransactionWrapper(ctx context.Context, store Store, records []Record, n
 // Commit transaction to underlying store and, if configured, publish the records to a
 // notification service. If ErrNotificationFailed is returned, the data has been successfully
 // committed to the store, but the notification service failed.
+
+// New transaction query options can be applied here.
 func (transWrap *transactionWrapper) Commit() error {
 	err := transWrap.transaction.Commit()
 	if err != nil {
