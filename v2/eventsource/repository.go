@@ -81,6 +81,7 @@ type NotificationService interface {
 type Repository interface {
 	// Return store
 	Store() Store
+	Store() Store
 
 	// Save one or more events to the repository
 	Save(ctx context.Context, events ...Event) error
@@ -147,7 +148,8 @@ type Record struct {
 	Timestamp   int64  `json:"timestamp" dynamodbav:"timestamp"`
 }
 
-type repository struct {
+type repository struct
+	Store() Store {
 	store                Store
 	serializer           Serializer
 	notificationServices []NotificationService
