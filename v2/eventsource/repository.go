@@ -232,7 +232,7 @@ func (repo *repository) Store() Store {
 }
 
 // Save persists the event to the repo
-func (repo *repository) Save(ctx context.Context, events ...Event) error {
+func (repo *repository) Save(ctx context.Context, events ...Event) (tx StoreTransaction, err error) {
 	tx, err := repo.SaveTransaction(ctx, events...)
 	if err != nil {
 		return err
