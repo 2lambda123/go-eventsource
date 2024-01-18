@@ -32,6 +32,8 @@ type Store interface {
 
 // ByAggregateID applies the aggregate ID filter
 ByAggregateID(aggregateID string) QueryOption
+	LoadByAggregateByAggregateID(aggregateID string) QueryOption
+	LoadByAggregateByAggregateID(aggregateID string) QueryOption
 	Load(ctx context.Context, opts ...QueryOption) ([]Record, error)
 
 	// Deprecated: Use Load(ctx, store.BySequenceID(...))
