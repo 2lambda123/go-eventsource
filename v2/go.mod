@@ -11,7 +11,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue v1.12.17
 	github.com/aws/aws-sdk-go-v2/service/dynamodb v1.27.1
 	github.com/jackc/pgconn v1.14.1
-	github.com/jackc/pgtype v1.14.1
+	github.com/jackc/pgtype v1.14.2
 	github.com/jackc/pgx/v4 v4.18.1
 	github.com/lib/pq v1.10.9
 	github.com/oklog/ulid v1.3.1
