@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/SKF/go-utility v1.11.0
 	github.com/SKF/go-utility/v2 v2.33.17
-	github.com/aws/aws-sdk-go v1.50.11
+	github.com/aws/aws-sdk-go v1.51.3
 	github.com/aws/aws-sdk-go-v2 v1.24.1
 	github.com/aws/aws-sdk-go-v2/config v1.26.6
 	github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue v1.12.17
